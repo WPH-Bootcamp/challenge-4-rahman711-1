@@ -22,6 +22,10 @@ class Student {
   
   constructor(id, name, studentClass) {
     // Implementasi constructor di sini
+    this.id = id;
+    this.name = name;
+    this.class + studentClass;
+    this.grades = {};
   }
 
   /**
@@ -32,6 +36,10 @@ class Student {
    */
   addGrade(subject, score) {
     // Implementasi method di sini
+    if (score < 0 || score > 100){
+      throw new Error("Nilai Harus Antara 0-100");
+    }
+    this.grades[subject] = score;
   }
 
   /**
@@ -41,6 +49,10 @@ class Student {
    */
   getAverage() {
     // Implementasi method di sini
+    const grades = Object.values(this.grades);
+    if (grades.length === 0) return 0;
+    const sum = grades.reduce((total,grade) => total + grade, 0);
+    return sum / grades.length;
   }
 
   /**
@@ -50,6 +62,7 @@ class Student {
    */
   getGradeStatus() {
     // Implementasi method di sini
+    return this.getAverage() >= 75 ? "Lulus" : "Tidak Lulus";
   }
 
   /**
@@ -57,7 +70,15 @@ class Student {
    * TODO: Tampilkan ID, Nama, Kelas, semua nilai, rata-rata, dan status
    */
   displayInfo() {
-    // Implementasi method di sini
+    console.log(`ID: ${this.id}`);
+    console.log(`Nama: ${this.name}`);
+    console.log(`Kelas: ${this.class}`);
+    console.log("Mata Pelajaran:");
+    for (const [subject, score] of Object.entries(this.grades)) {
+      console.log(`  - ${subject}: ${score}`);
+    }
+    console.log(`Rata-rata: ${this.getAverage().toFixed(2)}`);
+    console.log(`Status: ${this.getGradeStatus()}`);
   }
 }
 
